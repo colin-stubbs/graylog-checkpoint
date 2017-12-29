@@ -1,0 +1,571 @@
+{
+  "name": "CheckPoint",
+  "description": "Dashboards to summarise events relating to CheckPoint Technologies infrastructure.",
+  "category": "Security",
+  "inputs": [
+
+  ],
+  "streams": [
+    {
+      "id": "5a3b6ae85242372abb8860af",
+      "title": "CheckPoint Logs",
+      "description": "All CheckPoint logs",
+      "disabled": false,
+      "matching_type": "AND",
+      "stream_rules": [
+        {
+          "type": "EXACT",
+          "field": "process_name",
+          "value": "fw1-loggrabber",
+          "inverted": false,
+          "description": ""
+        }
+      ],
+      "outputs": [
+
+      ],
+      "default_stream": false
+    }
+  ],
+  "outputs": [
+
+  ],
+  "dashboards": [
+    {
+      "title": "CheckPoint Denied Traffic (1d)",
+      "description": "Summary of dropped\/blocked\/rejected traffic events over the last day",
+      "dashboard_widgets": [
+        {
+          "description": "Events Over Time",
+          "type": "SEARCH_RESULT_CHART",
+          "cache_time": 10,
+          "configuration": {
+            "timerange": {
+              "type": "relative",
+              "range": 86400
+            },
+            "interval": "hour",
+            "stream_id": "5a3b6ae85242372abb8860af",
+            "query": "cp_action:drop OR cp_action:block OR cp_action:reject"
+          },
+          "col": 2,
+          "row": 1,
+          "height": 1,
+          "width": 4
+        },
+        {
+          "description": "Top Actions",
+          "type": "QUICKVALUES",
+          "cache_time": 10,
+          "configuration": {
+            "timerange": {
+              "type": "relative",
+              "range": 86400
+            },
+            "field": "cp_action",
+            "stream_id": "5a3b6ae85242372abb8860af",
+            "query": "cp_action:drop OR cp_action:block OR cp_action:reject",
+            "show_data_table": true,
+            "show_pie_chart": false
+          },
+          "col": 1,
+          "row": 1,
+          "height": 2,
+          "width": 1
+        },
+        {
+          "description": "Top Dropped Destinations",
+          "type": "QUICKVALUES",
+          "cache_time": 10,
+          "configuration": {
+            "timerange": {
+              "type": "relative",
+              "range": 86400
+            },
+            "field": "cp_dst",
+            "stream_id": "5a3b6ae85242372abb8860af",
+            "query": "cp_action:drop OR cp_action:block OR cp_action:reject",
+            "show_data_table": true,
+            "show_pie_chart": false
+          },
+          "col": 5,
+          "row": 4,
+          "height": 3,
+          "width": 1
+        },
+        {
+          "description": "Top Rules",
+          "type": "QUICKVALUES",
+          "cache_time": 10,
+          "configuration": {
+            "timerange": {
+              "type": "relative",
+              "range": 86400
+            },
+            "field": "cp_match_table_rule_name",
+            "stream_id": "5a3b6ae85242372abb8860af",
+            "query": "cp_action:drop OR cp_action:block OR cp_action:reject",
+            "show_data_table": true,
+            "show_pie_chart": false
+          },
+          "col": 3,
+          "row": 7,
+          "height": 3,
+          "width": 2
+        },
+        {
+          "description": "Exception Messages",
+          "type": "QUICKVALUES",
+          "cache_time": 10,
+          "configuration": {
+            "timerange": {
+              "type": "relative",
+              "range": 86400
+            },
+            "field": "cp_message_info",
+            "stream_id": "5a3b6ae85242372abb8860af",
+            "query": "cp_action:drop OR cp_action:block OR cp_action:reject",
+            "show_data_table": true,
+            "show_pie_chart": false
+          },
+          "col": 1,
+          "row": 6,
+          "height": 2,
+          "width": 2
+        },
+        {
+          "description": "Top Protocols",
+          "type": "QUICKVALUES",
+          "cache_time": 10,
+          "configuration": {
+            "timerange": {
+              "type": "relative",
+              "range": 86400
+            },
+            "field": "cp_proto",
+            "stream_id": "5a3b6ae85242372abb8860af",
+            "query": "cp_action:drop OR cp_action:block OR cp_action:reject",
+            "show_data_table": true,
+            "show_pie_chart": false
+          },
+          "col": 2,
+          "row": 4,
+          "height": 2,
+          "width": 1
+        },
+        {
+          "description": "Top Source Ports",
+          "type": "QUICKVALUES",
+          "cache_time": 10,
+          "configuration": {
+            "timerange": {
+              "type": "relative",
+              "range": 86400
+            },
+            "field": "cp_s_port",
+            "stream_id": "5a3b6ae85242372abb8860af",
+            "query": "cp_action:drop OR cp_action:block OR cp_action:reject",
+            "show_data_table": true,
+            "show_pie_chart": false
+          },
+          "col": 4,
+          "row": 4,
+          "height": 3,
+          "width": 1
+        },
+        {
+          "description": "Top Destination Ports",
+          "type": "QUICKVALUES",
+          "cache_time": 10,
+          "configuration": {
+            "timerange": {
+              "type": "relative",
+              "range": 86400
+            },
+            "field": "cp_service",
+            "stream_id": "5a3b6ae85242372abb8860af",
+            "query": "cp_action:drop OR cp_action:block OR cp_action:reject",
+            "show_data_table": true,
+            "show_pie_chart": false
+          },
+          "col": 6,
+          "row": 4,
+          "height": 3,
+          "width": 1
+        },
+        {
+          "description": "Top Rule Sources",
+          "type": "QUICKVALUES",
+          "cache_time": 10,
+          "configuration": {
+            "timerange": {
+              "type": "relative",
+              "range": 86400
+            },
+            "field": "cp_match_table_layer_name",
+            "stream_id": "5a3b6ae85242372abb8860af",
+            "query": "cp_action:drop OR cp_action:block OR cp_action:reject",
+            "show_data_table": true,
+            "show_pie_chart": false
+          },
+          "col": 3,
+          "row": 6,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "description": "Top Sources",
+          "type": "QUICKVALUES",
+          "cache_time": 10,
+          "configuration": {
+            "timerange": {
+              "type": "relative",
+              "range": 86400
+            },
+            "field": "cp_orig",
+            "stream_id": "5a3b6ae85242372abb8860af",
+            "query": "cp_action:drop OR cp_action:block OR cp_action:reject",
+            "show_data_table": true,
+            "show_pie_chart": false
+          },
+          "col": 3,
+          "row": 4,
+          "height": 2,
+          "width": 1
+        },
+        {
+          "description": "Global Sources",
+          "type": "org.graylog.plugins.map.widget.strategy.MapWidgetStrategy",
+          "cache_time": 10,
+          "configuration": {
+            "timerange": {
+              "type": "relative",
+              "range": 86400
+            },
+            "field": "cp_src_geolocation",
+            "stream_id": "5a3b6ae85242372abb8860af",
+            "query": "cp_action:drop OR cp_action:block OR cp_action:reject"
+          },
+          "col": 2,
+          "row": 2,
+          "height": 2,
+          "width": 2
+        },
+        {
+          "description": "Global Destinations",
+          "type": "org.graylog.plugins.map.widget.strategy.MapWidgetStrategy",
+          "cache_time": 10,
+          "configuration": {
+            "timerange": {
+              "type": "relative",
+              "range": 86400
+            },
+            "field": "cp_dst_geolocation",
+            "stream_id": "5a3b6ae85242372abb8860af",
+            "query": "cp_action:drop OR cp_action:block OR cp_action:reject"
+          },
+          "col": 4,
+          "row": 2,
+          "height": 2,
+          "width": 2
+        },
+        {
+          "description": "Top Services",
+          "type": "QUICKVALUES",
+          "cache_time": 10,
+          "configuration": {
+            "timerange": {
+              "type": "relative",
+              "range": 86400
+            },
+            "field": "cp_service_id",
+            "stream_id": "5a3b6ae85242372abb8860af",
+            "query": "cp_action:drop OR cp_action:block OR cp_action:reject",
+            "show_data_table": true,
+            "show_pie_chart": false
+          },
+          "col": 6,
+          "row": 1,
+          "height": 3,
+          "width": 1
+        },
+        {
+          "description": "Top Input Zones",
+          "type": "QUICKVALUES",
+          "cache_time": 10,
+          "configuration": {
+            "timerange": {
+              "type": "relative",
+              "range": 86400
+            },
+            "field": "cp_inzone",
+            "stream_id": "5a3b6ae85242372abb8860af",
+            "query": "cp_action:drop OR cp_action:block OR cp_action:reject",
+            "show_data_table": true,
+            "show_pie_chart": false
+          },
+          "col": 1,
+          "row": 3,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "description": "Top Output Zones",
+          "type": "QUICKVALUES",
+          "cache_time": 10,
+          "configuration": {
+            "timerange": {
+              "type": "relative",
+              "range": 86400
+            },
+            "field": "cp_outzone",
+            "stream_id": "5a3b6ae85242372abb8860af",
+            "query": "cp_action:drop OR cp_action:block OR cp_action:reject",
+            "show_data_table": true,
+            "show_pie_chart": false
+          },
+          "col": 1,
+          "row": 4,
+          "height": 2,
+          "width": 1
+        },
+        {
+          "description": "Top Reasons (when provided)",
+          "type": "QUICKVALUES",
+          "cache_time": 10,
+          "configuration": {
+            "timerange": {
+              "type": "relative",
+              "range": 86400
+            },
+            "field": "cp_action_reason",
+            "stream_id": "5a3b6ae85242372abb8860af",
+            "query": "cp_action:drop OR cp_action:block OR cp_action:reject",
+            "show_data_table": true,
+            "show_pie_chart": false
+          },
+          "col": 1,
+          "row": 8,
+          "height": 2,
+          "width": 2
+        }
+      ]
+    },
+    {
+      "title": "CheckPoint Overview (1d)",
+      "description": "Overview of CheckPoint infrastructure activity for the last day",
+      "dashboard_widgets": [
+        {
+          "description": "Log Volume (1d)",
+          "type": "SEARCH_RESULT_CHART",
+          "cache_time": 10,
+          "configuration": {
+            "timerange": {
+              "type": "relative",
+              "range": 86400
+            },
+            "interval": "hour",
+            "stream_id": "5a3b6ae85242372abb8860af",
+            "query": ""
+          },
+          "col": 1,
+          "row": 1,
+          "height": 1,
+          "width": 4
+        },
+        {
+          "description": "Top Destinations",
+          "type": "QUICKVALUES",
+          "cache_time": 10,
+          "configuration": {
+            "timerange": {
+              "type": "relative",
+              "range": 86400
+            },
+            "field": "cp_dst",
+            "stream_id": "5a3b6ae85242372abb8860af",
+            "query": "",
+            "show_data_table": true,
+            "show_pie_chart": false
+          },
+          "col": 2,
+          "row": 4,
+          "height": 3,
+          "width": 1
+        },
+        {
+          "description": "Top Input Traffic Zones",
+          "type": "QUICKVALUES",
+          "cache_time": 10,
+          "configuration": {
+            "timerange": {
+              "type": "relative",
+              "range": 86400
+            },
+            "field": "cp_inzone",
+            "stream_id": "5a3b6ae85242372abb8860af",
+            "query": "",
+            "show_data_table": true,
+            "show_pie_chart": false
+          },
+          "col": 3,
+          "row": 5,
+          "height": 2,
+          "width": 1
+        },
+        {
+          "description": "Logs by Type",
+          "type": "QUICKVALUES",
+          "cache_time": 10,
+          "configuration": {
+            "timerange": {
+              "type": "relative",
+              "range": 86400
+            },
+            "field": "cp_log_type",
+            "stream_id": "5a3b6ae85242372abb8860af",
+            "query": "",
+            "show_data_table": true,
+            "show_pie_chart": false
+          },
+          "col": 1,
+          "row": 2,
+          "height": 2,
+          "width": 1
+        },
+        {
+          "description": "Top Traffic Out Zones",
+          "type": "QUICKVALUES",
+          "cache_time": 10,
+          "configuration": {
+            "timerange": {
+              "type": "relative",
+              "range": 86400
+            },
+            "field": "cp_outzone",
+            "stream_id": "5a3b6ae85242372abb8860af",
+            "query": "",
+            "show_data_table": true,
+            "show_pie_chart": false
+          },
+          "col": 4,
+          "row": 5,
+          "height": 2,
+          "width": 1
+        },
+        {
+          "description": "Logs by Application",
+          "type": "QUICKVALUES",
+          "cache_time": 10,
+          "configuration": {
+            "timerange": {
+              "type": "relative",
+              "range": 86400
+            },
+            "field": "cp_product",
+            "stream_id": "5a3b6ae85242372abb8860af",
+            "query": "",
+            "show_data_table": true,
+            "show_pie_chart": false
+          },
+          "col": 2,
+          "row": 2,
+          "height": 2,
+          "width": 1
+        },
+        {
+          "description": "Top Rule Usage",
+          "type": "QUICKVALUES",
+          "cache_time": 10,
+          "configuration": {
+            "timerange": {
+              "type": "relative",
+              "range": 86400
+            },
+            "field": "cp_rule_name",
+            "stream_id": "5a3b6ae85242372abb8860af",
+            "query": "",
+            "show_data_table": true,
+            "show_pie_chart": false
+          },
+          "col": 4,
+          "row": 2,
+          "height": 3,
+          "width": 1
+        },
+        {
+          "description": "Top Sources",
+          "type": "QUICKVALUES",
+          "cache_time": 10,
+          "configuration": {
+            "timerange": {
+              "type": "relative",
+              "range": 86400
+            },
+            "field": "cp_src",
+            "stream_id": "5a3b6ae85242372abb8860af",
+            "query": "",
+            "show_data_table": true,
+            "show_pie_chart": false
+          },
+          "col": 1,
+          "row": 4,
+          "height": 3,
+          "width": 1
+        },
+        {
+          "description": "Top App Classifications",
+          "type": "QUICKVALUES",
+          "cache_time": 10,
+          "configuration": {
+            "timerange": {
+              "type": "relative",
+              "range": 86400
+            },
+            "field": "cp_app_category",
+            "stream_id": "5a3b6ae85242372abb8860af",
+            "query": "",
+            "show_data_table": true,
+            "show_pie_chart": false
+          },
+          "col": 5,
+          "row": 1,
+          "height": 6,
+          "width": 1
+        },
+        {
+          "description": "Log Actions",
+          "type": "QUICKVALUES",
+          "cache_time": 10,
+          "configuration": {
+            "timerange": {
+              "type": "relative",
+              "range": 86400
+            },
+            "field": "cp_action",
+            "stream_id": "5a3b6ae85242372abb8860af",
+            "query": "",
+            "show_data_table": true,
+            "show_pie_chart": false
+          },
+          "col": 3,
+          "row": 2,
+          "height": 3,
+          "width": 1
+        }
+      ]
+    }
+  ],
+  "grok_patterns": [
+
+  ],
+  "lookup_tables": [
+
+  ],
+  "lookup_caches": [
+
+  ],
+  "lookup_data_adapters": [
+
+  ]
+}

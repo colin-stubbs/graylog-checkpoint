@@ -1,0 +1,11 @@
+rule "fw1-loggrabber process"
+when
+  has_field("message") &&
+  contains(value: to_string($message.message), search: "fw1-loggrabber")
+then
+  let m_grok = grok(pattern: "%{DATA} %{DATA:process_name}\\[%{NUMBER:pid}\\]: %{GREEDYDATA:fw1_log}", value: to_string($message.message), only_named_captures: true);
+  let fw1_kvps = key_value(value: to_string(m_grok.fw1_log), delimiters: "|");
+  set_field("process_name", m_grok.process_name);
+  set_field("pid", m_grok.pid);
+  set_fields(fields: fw1_kvps, prefix: "cp_");
+end
